@@ -1,19 +1,27 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
-import { useRouter } from 'next/navigation';
+import { useStoreModal } from "@/hooks/use-store-model";
+import { useEffect } from "react";
+
+ 
 
 export default function SetupPage() {
-    const router = useRouter()
-    const handleClick = () => {
-        router.push('/sign-in/[[...index]].tsx'); 
-      };
-    return (
-      <div  className="p-4" >
-            <UserButton />
-            <Button onClick={handleClick}>Click Me</Button>
-      </div>
-    );
+  const onOpen = useStoreModal( (state)=> state.onOpen )
+    const isOpen = useStoreModal( (state)=> state.isOpen )
+
+
+    useEffect(()=>{
+        if (!isOpen) {
+            onOpen()
+        }
+    },
+    [isOpen, onOpen])
+
+
+    return(
+        <div className="p-4">
+            Root Page
+        </div>
+    )
   }
-  
+
