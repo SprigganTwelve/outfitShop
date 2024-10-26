@@ -5,6 +5,7 @@ import axios from 'axios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useStoreModal } from "@/hooks/use-store-model"
 import { useState } from 'react'
+import { toast } from 'react-hot-toast'
 
 import { Modal } from "@/components/ui/modal"
 import { useForm } from 'react-hook-form'
@@ -17,7 +18,7 @@ const formSchema = z.object({
     name: z.string().min(1)
 })
 
-export const SotreModal = () => {
+export const StoreModal = () => {
     const storeModal = useStoreModal()
 
     const [loading, setLoading] = useState(false)
@@ -34,9 +35,11 @@ export const SotreModal = () => {
             setLoading(true)
             const response = await axios.post('/api/stores', values)
             console.log(response.data)
+            toast.success("Store created")
         }
-        catch(err){
-            console.log(err)
+        catch(error){
+            toast.error("Something went wrong")
+            console.log(error)
         }
         finally{
             setLoading(false)
