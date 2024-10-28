@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ImagePlus, Trash } from "lucide-react";
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
+import { CldUploadWidget } from 'next-cloudinary';
 import Image from "next/image";
 
 interface ImageUploadProps {
@@ -26,6 +26,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     useEffect(()=>{
         setIsMounted(true)
     },[])
+
 
     const onUpload = (results: any ) => {
         onChange(results?.info?.secure_url)
