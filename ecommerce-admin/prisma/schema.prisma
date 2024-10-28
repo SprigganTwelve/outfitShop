@@ -5,19 +5,32 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider  =  "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider  =   "postgresql"
+  url       =   env("DATABASE_URL")
+  directUrl =   env("DIRECT_URL")
 }
 
 model Store {
   id            String         @id   @default(uuid())
   name          String
   userId        String
+  billboard     Billboard[] @relation("StoreToBillboard")
   createdAt     DateTime @default(now())               
   updatedAt     DateTime @updatedAt
+}
+
+model Billboard{
+  id            String  @id @default(uuid())
+  storeId       String
+  store         Store   @relation("StoreToBillboard", fields: [storeId], references: [id])
+  label         String
+  imageUrl      String
+  createdAt     DateTime @default(now())               
+  updatedAt     DateTime @updatedAt
+
+  @@index([storeId])
 }
