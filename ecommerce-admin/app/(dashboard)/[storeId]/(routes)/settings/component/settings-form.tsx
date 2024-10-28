@@ -74,7 +74,6 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
             toast.error("Make sure you to remove all products.")
             toast.error("Something went wrong")
             console.log(error)
-            toast.success("Store deleted.")
         }
         finally{
             setLoading(false)

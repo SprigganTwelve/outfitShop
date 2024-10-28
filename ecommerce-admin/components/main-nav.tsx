@@ -22,7 +22,12 @@ export  function MainNav({
           label: 'Billboards',
           href: `/${params.storeId}/billboards`,
           active: pathName === `/${params.storeId}/billboards`
-      },
+        },
+        {
+          label: 'Categories',
+          href: `/${params.storeId}/categories`,
+          active: pathName === `/${params.storeId}/categories`
+        },
         {
           label: 'Setting',
           href: `/${params.storeId}/settings`,
