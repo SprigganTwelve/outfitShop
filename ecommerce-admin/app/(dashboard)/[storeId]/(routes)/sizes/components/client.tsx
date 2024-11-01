@@ -5,17 +5,17 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import { Plus } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
-import { CategoryColumn, 
+import { SizeColumn, 
          columns 
         } from "./columns"
 import { DataTable } from "@/components/ui/data-table-ui"
 import { ApiList } from "@/components/ui/api-list"
 
-interface CategoryClientProps {
-    data: CategoryColumn[]
+interface SizeClientProps {
+    data: SizeColumn[]
 }
 
-export const CategoryClient: React.FC<CategoryClientProps> = ({
+export const SizeClient: React.FC<SizeClientProps> = ({
     data
 }) =>{
     const router = useRouter()
@@ -25,24 +25,24 @@ export const CategoryClient: React.FC<CategoryClientProps> = ({
         <> 
             <div className="flex items-center justify-between">
                 <Heading
-                   title={`Categories (${data.length})`}
-                   description="Manage categories for your store"
+                   title={`Sizes (${data.length})`}
+                   description="Manage sizes for your store"
                 />
-                <Button onClick={ () => router.push(`/${params.storeId}/categories/new`) }>
+                <Button onClick={ () => router.push(`/${params.storeId}/sizes/new`) }>
                     <Plus className="mr-2 w-4" />
                     Add New
                 </Button>
             </div>
             <Separator />
-            <DataTable searchKey="name" columns={columns} data={data} />
+            <DataTable searchKey="Name" columns={columns} data={data} />
             <Heading
                 title="Api"
-                description="Api calls for categories"
+                description="Api calls for sizes"
             />
             <Separator />
             <ApiList 
-                entityName="categories"
-                entityIdName="categoriesId"
+                entityName="sizes"
+                entityIdName="sizeId"
             />
         </>
     )
