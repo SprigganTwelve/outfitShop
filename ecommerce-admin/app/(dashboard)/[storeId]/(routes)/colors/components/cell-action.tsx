@@ -14,13 +14,13 @@ import { DropdownMenu,
          DropdownMenuTrigger,
          DropdownMenuItem
         } from "@/components/ui/dropdown-menu"
-import { SizeColumn } from "./columns"
+import { ColorColumn } from "./columns"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { AlertModal } from "@/components/modals/alert-modal"
 
 interface CellActionProsp{
-    data: SizeColumn
+    data: ColorColumn
 }
 
 export  const  CellAction: React.FC<CellActionProsp> = ({
@@ -29,7 +29,7 @@ export  const  CellAction: React.FC<CellActionProsp> = ({
 
     const onCopy = (id: string)=> {
         navigator.clipboard.writeText(id)
-        toast.success('Size id copied to the clipboard')
+        toast.success('Color id copied to the clipboard')
     }
 
     const router = useRouter()
@@ -42,11 +42,11 @@ export  const  CellAction: React.FC<CellActionProsp> = ({
     const onDelete = async () =>{
         try{
             setLoading(true)
-            await axios.delete(`/api/${params.storeId}/sizes/${data.id}`)
+            await axios.delete(`/api/${params.storeId}/colors/${data.id}`)
             router.refresh()
-            toast.success("Size deleted")
+            toast.success("Color deleted")
         }catch(error){
-            toast.error("Make sure you removed all products using this size first.")
+            toast.error("Make sure you removed all products using this color first.")
             console.log(error)
         }
         finally{
@@ -74,7 +74,7 @@ export  const  CellAction: React.FC<CellActionProsp> = ({
                     <DropdownMenuLabel>
                         Actions
                     </DropdownMenuLabel>
-                    <DropdownMenuItem onClick={ () => router.push(`/${params.storeId}/sizes/${data.id}`) }>
+                    <DropdownMenuItem onClick={ () => router.push(`/${params.storeId}/colors/${data.id}`) }>
                         <Edit className="mr-2 h-4 w-4"/>
                         Update
                     </DropdownMenuItem>

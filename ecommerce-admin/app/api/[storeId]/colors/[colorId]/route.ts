@@ -6,25 +6,25 @@ import { NextResponse } from "next/server";
 
 export async function GET (
     req: Request,
-    { params }: { params: {  sizeId: string }}
+    { params }: { params: {  colorId: string }}
 ){
     try{
 
-        if(!params.sizeId){
-            return new NextResponse("Size id is required", { status: 401 });
+        if(!params.colorId){
+            return new NextResponse("Color Id is required", { status: 401 });
         }
 
 
-        const size = await prismadb.size.findUnique({
+        const color = await prismadb.color.findUnique({
             where:{
-                id: params.sizeId,
+                id: params.colorId,
             }
         })
 
-        return NextResponse.json(size)
+        return NextResponse.json(color)
 
     }catch(error){
-        console.log('[SIZE_GET]', error);
+        console.log('[COLOR_GET]', error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }
@@ -32,7 +32,7 @@ export async function GET (
 
 export async function PATCH (
     req: Request,
-    { params }: { params: { storeId: string,  sizeId: string }}
+    { params }: { params: { storeId: string,  colorId: string }}
 ){
     try{
         const { userId }: { userId: string | null } = await auth()
@@ -51,8 +51,8 @@ export async function PATCH (
             return new NextResponse("Value Url is required", { status: 401 });
         }
         
-        if(!params.sizeId){
-            return new NextResponse("Size  id is required", { status: 401 });
+        if(!params.colorId){
+            return new NextResponse("Color  id is required", { status: 401 });
         }
 
 
@@ -67,9 +67,9 @@ export async function PATCH (
             return new NextResponse( "Unauthorized", { status: 403 } );
         }
 
-        const size = await prismadb.size.updateMany({
+        const color = await prismadb.color.updateMany({
             where:{
-                id: params.sizeId,
+                id: params.colorId,
             },
             data:{
                 name,
@@ -77,10 +77,10 @@ export async function PATCH (
             }
         })
 
-        return NextResponse.json(size)
+        return NextResponse.json(color)
 
     }catch(error){
-        console.log('[SIZE_PATCH]', error);
+        console.log('[COLOR_PATCH]', error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }
@@ -89,7 +89,7 @@ export async function PATCH (
 
 export async function DELETE (
     req: Request,
-    { params }: { params: { storeId: string,  sizeId: string }}
+    { params }: { params: { storeId: string,  colorId: string }}
 ){
     try{
         const { userId }: { userId: string | null } = await auth()
@@ -98,8 +98,8 @@ export async function DELETE (
             return new NextResponse("Unathenticated", { status: 401 });
         }
         
-        if(!params.sizeId){
-            return new NextResponse("Size Id is required", { status: 401 });
+        if(!params.colorId){
+            return new NextResponse("Color Id is required", { status: 401 });
         }
 
 
@@ -115,16 +115,16 @@ export async function DELETE (
         }
 
 
-        const size = await prismadb.size.deleteMany({
+        const color = await prismadb.color.deleteMany({
             where:{
-                id: params.sizeId,
+                id: params.colorId,
             }
         })
 
-        return NextResponse.json(size)
+        return NextResponse.json(color)
 
     }catch(error){
-        console.log('[SIZE_DELETE]', error);
+        console.log('[COLOR_DELETE]', error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }
