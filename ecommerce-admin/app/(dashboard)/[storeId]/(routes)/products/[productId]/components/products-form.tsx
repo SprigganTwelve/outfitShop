@@ -14,7 +14,7 @@ import { Category,
 import { Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { 
     Form, 
     FormField, 
@@ -70,6 +70,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     const router = useRouter()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [images, setImages] = useState(initialData?.images || []); 
 
     const title = initialData ? "Edit product": "Create product"
     const description = initialData ? "Edit product": "Add a new product"
@@ -93,6 +94,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             isAborted: false
         }
     })
+
+
+    const { setValue } = form;
+    useEffect(() => {
+        setValue('images', images);
+    }, [images, setValue]);
+
+    const handleImageAdd = (url: string) => {
+        setImages((prevImages) => [...prevImages, { url }]);
+    };
+
+    const handleImageRemove = (url: string) => {
+        setImages((prevImages) => prevImages.filter((image) => image.url !== url));
+    };
+
 
     const onSubmit = async (data: ProductFormValue ) => {
        try{
@@ -171,20 +187,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                             <ImageUpload 
                                                 value={field.value.map((image) => image.url)}
                                                 disabled={loading}
-                                                onChange={(url) => {
-                                                    field.onChange((prevImages: Image[]) => {
-                                                        const updatedImages = [...(prevImages || []), { url }];
-                                                        console.log("Updated Images (onChange with functional update):", updatedImages);
-                                                        return updatedImages;
-                                                    });
-                                                }}
-                                                onRemove={(url) => {
-                                                    field.onChange((prevImages: Image[]) => {
-                                                        const updatedImages = (prevImages || []).filter((current) => current.url !== url);
-                                                        console.log("Updated Images (onRemove with functional update):", updatedImages);
-                                                        return updatedImages;
-                                                    });
-                                                }}
+                                                onChange={handleImageAdd}
+                                                onRemove={handleImageRemove}
                                             />
                                             </FormControl>
                                             <FormMessage />

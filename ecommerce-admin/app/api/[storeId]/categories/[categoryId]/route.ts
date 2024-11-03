@@ -11,7 +11,7 @@ export async function GET (
     try{
 
         if(!params.categoryId){
-            return new NextResponse("Billboard is required", { status: 401 });
+            return new NextResponse("Billboard id is required", { status: 401 });
         }
 
 
