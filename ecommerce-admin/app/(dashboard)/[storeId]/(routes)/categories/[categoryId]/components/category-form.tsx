@@ -160,8 +160,7 @@ export const CategoryForm: React.FC<categoryFormProps> = ({
                                                     <SelectTrigger>
                                                         <SelectValue defaultValue={field.value}
                                                                      placeholder="Select a billboard"
-                                                        >
-                                                        </SelectValue>
+                                                        />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <FormMessage/>

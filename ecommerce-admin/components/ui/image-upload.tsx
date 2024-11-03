@@ -27,7 +27,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         setIsMounted(true)
     },[])
 
-
+ 
     const onUpload = (results: any ) => {
         onChange(results?.info?.secure_url)
     }
@@ -36,6 +36,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     if (!isMounted) {
         return null
     }
+
 
     return ( 
         <div>
@@ -63,7 +64,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                     const onClick = () => {
                         open()
                     }
-
 
                     return(
                         <Button
