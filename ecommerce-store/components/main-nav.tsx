@@ -1,10 +1,12 @@
 "use client"
 
+import { cn } from "@/lib/utils";
+import { Category } from "@/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface MainNavProps{
-    data: any
+    data: Category[]
 } 
 
 const MainNav: React.FC<MainNavProps> = ({
@@ -12,7 +14,7 @@ const MainNav: React.FC<MainNavProps> = ({
 }) => {
     const pathname = usePathname()
 
-    const routes = daat.map((route) => ({
+    const routes = data.map((route) => ({
         href: `category/${route.id}`,
         label: route.name,
         active: pathname === `category/${route.id}`
@@ -22,13 +24,16 @@ const MainNav: React.FC<MainNavProps> = ({
         <nav
             className="mx-6 items-center space-x-4 lg:space-x-6"
         >
-            {routes.map((item)=> (
+            {routes.map((route)=> (
                 <Link
-                    key={routes.href}
-                    href={routes.href}
-                    className={}
+                    key={route.href}
+                    href={route.href}
+                    className={cn(
+                        "text-sm font-medium transition-colors hover:text-black",
+                        route.active ? "text-black" : "text-neutral-500"
+                    )}
                 >
-                
+                {route.label}
                 </Link>
             ))}
         </nav>
