@@ -24,7 +24,7 @@ const NavbarActions = () => {
                         color="white"
                 />
                 <span className="ml-2 text-sm font-medium text-white">
-                    0
+                    0 
                 </span>
             </Button>
         </div>
